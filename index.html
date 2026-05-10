@@ -16,8 +16,13 @@
     #result {
       font-size: 48px;
       margin: 30px 0;
-      color: #333;
+      font-weight: bold;
     }
+    .daikichi { color: gold; }
+    .chuukichi { color: green; }
+    .shoukichi { color: #333; }
+    .kyou { color: red; }
+
     button {
       font-size: 18px;
       padding: 10px 20px;
@@ -26,9 +31,6 @@
       background: #4CAF50;
       color: white;
       cursor: pointer;
-    }
-    button:hover {
-      background: #45a049;
     }
   </style>
 </head>
@@ -40,18 +42,23 @@
 
   <script>
     function drawOmikuji() {
-      const results = [
-        { fortune: "大吉", message: "今日は最高の日です！" },
-        { fortune: "中吉", message: "なかなか良い一日になりそうです" },
-        { fortune: "小吉", message: "穏やかに過ごすと吉です" },
-        { fortune: "凶", message: "無理せず慎重にいきましょう" }
-      ];
+      const rand = Math.random();
 
-      const randomIndex = Math.floor(Math.random() * results.length);
-      const result = results[randomIndex];
+      let result = {};
 
-      document.getElementById("result").innerHTML =
-        result.fortune + "<br><small>" + result.message + "</small>";
+      if (rand < 0.1) {
+        result = { fortune: "大吉", message: "今日は最高の日です！", class: "daikichi" };
+      } else if (rand < 0.4) {
+        result = { fortune: "中吉", message: "なかなか良い一日になりそうです", class: "chuukichi" };
+      } else if (rand < 0.8) {
+        result = { fortune: "小吉", message: "穏やかに過ごすと吉です", class: "shoukichi" };
+      } else {
+        result = { fortune: "凶", message: "無理せず慎重にいきましょう", class: "kyou" };
+      }
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.className = result.class;
+      resultDiv.innerHTML = result.fortune + "<br><small>" + result.message + "</small>";
     }
   </script>
 
